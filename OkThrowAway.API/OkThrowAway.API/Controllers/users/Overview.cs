@@ -23,13 +23,13 @@ namespace OkThrowAway.API.Controllers.users
         [HttpGet("/api/users/list")]
         public async Task<List<ViewModel>> List() => await mediator.Send(new Query());
     }
+    public class Query : IRequest<List<ViewModel>> { }
 
-    public class ViewModel : IRequest<User> 
+    public class ViewModel
     { 
         public string Email { get; set; }
         public string UserName { get; set; }
     }
-    public class Query: IRequest<List<ViewModel>> { }
 
     public class Mapping : Profile 
     { 
@@ -38,7 +38,6 @@ namespace OkThrowAway.API.Controllers.users
             CreateMap<User, ViewModel>();
         }
     }
-
 
     public class QueryHandler : IRequestHandler<Query, List<ViewModel>>
     {
