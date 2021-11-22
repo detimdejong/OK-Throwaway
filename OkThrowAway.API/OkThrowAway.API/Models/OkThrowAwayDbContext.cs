@@ -8,8 +8,10 @@ namespace OkThrowAway.API.Models
             : base(options)
         {
 
-        }   
-        
-        DbSet<User> Users { get; set; }
+        }
+
+        public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<ShoppingList> Lists { get; set; }
     }
 }
