@@ -6,9 +6,7 @@ namespace OkThrowAway.API.Models
     {
         public OkThrowAwayDbContext(DbContextOptions<OkThrowAwayDbContext> options)
             : base(options)
-        {
-
-        }
+        { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
