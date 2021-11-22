@@ -43,6 +43,4 @@ namespace OkThrowAway.API.Controllers.users
             CreateMap<User, ViewModel>();
         }
     }
-
-
 }
