@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OkThrowAway.API.Models;
@@ -13,23 +12,29 @@ namespace OkThrowAway.API.Controllers.users
     [ApiController]
     public class Overview : Controller
     {
-        private readonly IMediator mediator;
+        private readonly OkThrowAwayDbContext db;
+        private readonly IMapper mapper;
 
-        public Overview(IMediator mediator)
+        public Overview(OkThrowAwayDbContext db, IMapper mapper)
         {
-            this.mediator = mediator;
+            
+            this.db = db;
+            this.mapper = mapper;
         }
 
         [HttpGet("/api/users/list")]
-        public async Task<List<ViewModel>> List() => await mediator.Send(new Query());
+        public async Task<List<ViewModel>> List()
+        {
+            return await db.Users.ProjectTo<ViewModel>(mapper.ConfigurationProvider).ToListAsync();
+        }
     }
 
-    public class ViewModel : IRequest<User> 
+    public class ViewModel
     { 
         public string Email { get; set; }
         public string UserName { get; set; }
+       
     }
-    public class Query: IRequest<List<ViewModel>> { }
 
     public class Mapping : Profile 
     { 
@@ -39,22 +44,5 @@ namespace OkThrowAway.API.Controllers.users
         }
     }
 
-
-    public class QueryHandler : IRequestHandler<Query, List<ViewModel>>
-    {
-        private readonly OkThrowAwayDbContext db;
-        private readonly IMapper mapper;
-
-        public QueryHandler(OkThrowAwayDbContext db, IMapper mapper)
-        {
-            this.db = db;
-            this.mapper = mapper;
-        }
-
-        public async Task<List<ViewModel>> Handle(Query request, CancellationToken cancellationToken)
-        {
-            return await db.Users.ProjectTo<ViewModel>(mapper.ConfigurationProvider).ToListAsync();
-        }
-    }
 
 }

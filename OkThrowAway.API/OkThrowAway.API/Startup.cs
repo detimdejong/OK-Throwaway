@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +23,6 @@ namespace OkThrowAway.API
         {
             services.AddControllers();
             services.AddDbContext<OkThrowAwayDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("OkThrowAwayDb")));
-            services.AddMediatR(typeof(Startup));
             services.AddAutoMapper(typeof(Startup));
         }
 
