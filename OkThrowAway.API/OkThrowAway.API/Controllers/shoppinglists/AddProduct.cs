@@ -22,11 +22,11 @@ namespace OkThrowAway.API.Controllers.lists
         }
 
         [HttpPost("/api/lists/addproduct")]
-        public async Task<ActionResult<ShoppingList>> PostAdditionItem(ViewModelAddition addition)
+        public async Task<ActionResult<ShoppingList>> PostAdditionItem(ViewModel addition)
         {
-            var list = await db.Lists
-                                .Include(x => x.User)
-                                .Include(x => x.Products)
+            var list = await db.ShoppingLists
+                                .Include(l => l.User)
+                                .Include(l => l.Products)
                                 .FirstOrDefaultAsync(x => x.Id == addition.ListId);
 
             if (list == null)
@@ -37,17 +37,14 @@ namespace OkThrowAway.API.Controllers.lists
             if (product == null)
                 return BadRequest("Product not found");
 
-            list.Products.Append(product);
+            list.Products.Add(product);
+            db.SaveChanges();
 
-            await db.SaveChangesAsync();
-
-            var lists = db.Lists.Include(l => l.User).Include(l => l.Products).ToList();
-
-            return Ok($"Added item {product.Name}to list {list.Id}");
+            return Ok($"Added {product.Name} to list {list.Id}");
         }
     }
 
-    public class ViewModelAddition
+    public class ViewModel
     {
         public int ListId { get; set; }
         public int ProductId { get; set; }

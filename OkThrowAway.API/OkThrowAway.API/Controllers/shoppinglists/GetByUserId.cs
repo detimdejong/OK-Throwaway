@@ -22,7 +22,10 @@ namespace OkThrowAway.API.Controllers.shoppinglists
         }
 
         [HttpGet("/api/shoppinglists/list/{id}")]
-        public async Task<List<ViewModel>> List(int id) => await db.Lists.ProjectTo<ViewModel>(mapper.ConfigurationProvider).Where(l => l.UserId == id).ToListAsync();
+        public async Task<List<ViewModel>> List(int id) => 
+            await db.ShoppingLists.ProjectTo<ViewModel>(mapper.ConfigurationProvider)
+                                    .Where(l => l.UserId == id)
+                                    .ToListAsync();
     }
 
     public class ViewModel
@@ -36,7 +39,8 @@ namespace OkThrowAway.API.Controllers.shoppinglists
     {
         public Mapping()
         {
-            CreateMap<ShoppingList, ViewModel>().ForMember(dest => dest.Products, orig => orig.MapFrom(v => v.Products.Select(p => p.Name)));
+            CreateMap<ShoppingList, ViewModel>()
+                .ForMember(dest => dest.Products, orig => orig.MapFrom(l => l.Products.Select(p => p.Name)));
         }
     }
 
