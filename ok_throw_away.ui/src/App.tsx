@@ -1,7 +1,7 @@
-import HomeScreen from "./components/screens/HomeScreen";
+import RoutingConfiguration from "../src/components/navigation/RoutingConfiguration";
 
 export default function App() {
   return (
-    <HomeScreen />
+    <RoutingConfiguration />
   );
 }
