@@ -17,8 +17,10 @@
 
   <ItemGroup>
     <None Remove="Controllers\products\" />
+    <None Remove="Controllers\lists\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\products\" />
+    <Folder Include="Controllers\lists\" />
   </ItemGroup>
 </Project>
