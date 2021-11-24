@@ -21,7 +21,7 @@ namespace OkThrowAway.API.Controllers.lists
         }
 
         [HttpPost("/api/lists/addlist")]
-        public async Task<ActionResult<ShoppingList>> PostListItem(ViewModel list)
+        public async Task<ActionResult<ShoppingList>> PostListItem(ViewModelList list)
         {
             var _list = mapper.Map<ShoppingList>(list);
             _list.User = db.Users.FirstOrDefault(u => u.Id == list.UserId);
@@ -31,11 +31,11 @@ namespace OkThrowAway.API.Controllers.lists
             db.Lists.Add(_list);
             await db.SaveChangesAsync();
 
-            return Ok($"Name: {_list.Name}");
+            return Ok($"Name: {_list.Name} ID: {_list.Id}");
         }
     }
 
-    public class ViewModel
+    public class ViewModelList
     {
         public string Name { get; set; }
         public int UserId { get; set; }
@@ -45,7 +45,7 @@ namespace OkThrowAway.API.Controllers.lists
     {
         public Mapping()
         {
-            CreateMap<ViewModel, ShoppingList>()
+            CreateMap<ViewModelList, ShoppingList>()
                 .ForMember(list => list.Products, o => o.MapFrom(v => new List<Product>() ));
         }
     }
