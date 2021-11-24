@@ -15,4 +15,10 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <None Remove="Controllers\products\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\products\" />
+  </ItemGroup>
 </Project>

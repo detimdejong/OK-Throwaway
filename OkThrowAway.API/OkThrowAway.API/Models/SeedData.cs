@@ -14,6 +14,11 @@ namespace OkThrowAway.API.Models
                 Salt = salt
             });
 
+            db.Products.Add(new Product{
+                Name = "Melk",
+                Barcode = "123456789101"
+            });
+
             db.SaveChanges();
         }
     }
