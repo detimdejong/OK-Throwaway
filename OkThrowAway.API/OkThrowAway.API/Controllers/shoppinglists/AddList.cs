@@ -30,7 +30,7 @@ namespace OkThrowAway.API.Controllers.lists
             db.ShoppingLists.Add(newList);
             db.SaveChanges();
 
-            return Ok("Created new shoppinglist");
+            return Ok($"Created new shoppinglist with ID {newList.Id}");
         }
     }
 
