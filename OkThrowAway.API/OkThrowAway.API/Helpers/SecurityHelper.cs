@@ -17,7 +17,7 @@ namespace OkThrowAway.API.Helpers
             return Convert.ToBase64String(saltBytes);
         }
 
-        public static string HashPassword(string password, string salt, int nIterations, int nHash)
+        public static string HashPassword(string password, string salt, int nIterations = 100, int nHash = 70)
         {
             var saltBytes = Convert.FromBase64String(salt);
 
