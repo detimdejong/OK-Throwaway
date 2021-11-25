@@ -40,7 +40,7 @@ namespace OkThrowAway.API.Controllers.shoppinglists
         public Mapping()
         {
             CreateMap<ShoppingList, ViewModel>()
-                .ForMember(dest => dest.Products, orig => orig.MapFrom(l => l.Products.Select(p => p.Name)));
+                .ForMember(dest => dest.Products, orig => orig.MapFrom(l => l.Products.Select(p => p.Product.Name)));
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using OkThrowAway.API.Helpers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace OkThrowAway.API.Models
 {
@@ -24,10 +25,11 @@ namespace OkThrowAway.API.Models
             }
             db.Products.AddRange(products);
 
-            db.ShoppingLists.Add(new ShoppingList {
+            db.ShoppingLists.Add(new ShoppingList
+            {
                 Name = "Supermarkt",
                 User = defaultUser,
-                Products = products
+                Products = products.Select(p => new ProductInList { Amount = 1, Product = p }).ToList()
             });
             
             db.SaveChanges();

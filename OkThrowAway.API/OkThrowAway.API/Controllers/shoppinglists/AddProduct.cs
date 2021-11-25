@@ -37,7 +37,20 @@ namespace OkThrowAway.API.Controllers.lists
             if (product == null)
                 return BadRequest("Product not found");
 
-            list.Products.Add(product);
+            var productInList = list.Products.FirstOrDefault(p => p.ProductId == product.Id);
+            if (productInList == null)
+            {
+                list.Products.Add(new ProductInList
+                {
+                    Product = product,
+                    Amount = 1
+                });
+            }
+            else
+            {
+                productInList.Amount += 1;
+            }
+
             db.SaveChanges();
 
             return Ok($"Added {product.Name} to list {list.Id}");

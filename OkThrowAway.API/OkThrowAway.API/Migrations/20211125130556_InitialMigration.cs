@@ -2,7 +2,7 @@
 
 namespace OkThrowAway.API.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -57,33 +57,41 @@ namespace OkThrowAway.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductShoppingList",
+                name: "ProductsInLists",
                 columns: table => new
                 {
-                    ProductsId = table.Column<int>(type: "int", nullable: false),
-                    ShoppingListsId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ProductId = table.Column<int>(type: "int", nullable: false),
+                    Amount = table.Column<int>(type: "int", nullable: false),
+                    ShoppingListId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProductShoppingList", x => new { x.ProductsId, x.ShoppingListsId });
+                    table.PrimaryKey("PK_ProductsInLists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductShoppingList_Products_ProductsId",
-                        column: x => x.ProductsId,
+                        name: "FK_ProductsInLists_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductShoppingList_ShoppingLists_ShoppingListsId",
-                        column: x => x.ShoppingListsId,
+                        name: "FK_ProductsInLists_ShoppingLists_ShoppingListId",
+                        column: x => x.ShoppingListId,
                         principalTable: "ShoppingLists",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductShoppingList_ShoppingListsId",
-                table: "ProductShoppingList",
-                column: "ShoppingListsId");
+                name: "IX_ProductsInLists_ProductId",
+                table: "ProductsInLists",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ProductsInLists_ShoppingListId",
+                table: "ProductsInLists",
+                column: "ShoppingListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ShoppingLists_UserId",
@@ -94,7 +102,7 @@ namespace OkThrowAway.API.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ProductShoppingList");
+                name: "ProductsInLists");
 
             migrationBuilder.DropTable(
                 name: "Products");

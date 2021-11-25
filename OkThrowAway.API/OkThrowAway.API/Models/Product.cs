@@ -7,6 +7,5 @@ namespace OkThrowAway.API.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Barcode { get; set; }
-        public ICollection<ShoppingList> ShoppingLists { get; set; }
     }
 }

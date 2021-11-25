@@ -11,5 +11,6 @@ namespace OkThrowAway.API.Models
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ShoppingList> ShoppingLists { get; set; }
+        public DbSet<ProductInList> ProductsInLists { get; set; }
     }
 }

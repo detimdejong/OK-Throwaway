@@ -37,6 +37,31 @@ namespace OkThrowAway.API.Migrations
                     b.ToTable("Products");
                 });
 
+            modelBuilder.Entity("OkThrowAway.API.Models.ProductInList", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ShoppingListId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("ShoppingListId");
+
+                    b.ToTable("ProductsInLists");
+                });
+
             modelBuilder.Entity("OkThrowAway.API.Models.ShoppingList", b =>
                 {
                     b.Property<int>("Id")
@@ -81,19 +106,19 @@ namespace OkThrowAway.API.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("ProductShoppingList", b =>
+            modelBuilder.Entity("OkThrowAway.API.Models.ProductInList", b =>
                 {
-                    b.Property<int>("ProductsId")
-                        .HasColumnType("int");
+                    b.HasOne("OkThrowAway.API.Models.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("ShoppingListsId")
-                        .HasColumnType("int");
+                    b.HasOne("OkThrowAway.API.Models.ShoppingList", null)
+                        .WithMany("Products")
+                        .HasForeignKey("ShoppingListId");
 
-                    b.HasKey("ProductsId", "ShoppingListsId");
-
-                    b.HasIndex("ShoppingListsId");
-
-                    b.ToTable("ProductShoppingList");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("OkThrowAway.API.Models.ShoppingList", b =>
@@ -105,19 +130,9 @@ namespace OkThrowAway.API.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProductShoppingList", b =>
+            modelBuilder.Entity("OkThrowAway.API.Models.ShoppingList", b =>
                 {
-                    b.HasOne("OkThrowAway.API.Models.Product", null)
-                        .WithMany()
-                        .HasForeignKey("ProductsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OkThrowAway.API.Models.ShoppingList", null)
-                        .WithMany()
-                        .HasForeignKey("ShoppingListsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Products");
                 });
 #pragma warning restore 612, 618
         }
