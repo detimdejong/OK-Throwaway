@@ -19,8 +19,8 @@ namespace OkThrowAway.API.Controllers.lists
             this.mapper = mapper;
         }
 
-        public async Task<ActionResult<ShoppingList>> AddShoppingList(ViewModelList vm)
         [HttpPost("/api/shoppinglist/add")]
+        public async Task<ActionResult<ShoppingList>> Add(ViewModelList vm)
         {
             var newList = mapper.Map<ShoppingList>(vm);
             newList.User = await db.Users.FirstOrDefaultAsync(u => u.Id == vm.UserId);

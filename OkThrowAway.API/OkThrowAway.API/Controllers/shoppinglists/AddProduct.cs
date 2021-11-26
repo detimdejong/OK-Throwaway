@@ -21,8 +21,8 @@ namespace OkThrowAway.API.Controllers.lists
             this.mapper = mapper;
         }
 
-        public async Task<ActionResult<ShoppingList>> PostAdditionItem(ViewModel addition)
         [HttpPost("/api/shoppinglist/addproduct")]
+        public async Task<ActionResult> Addition(ViewModel addition)
         {
             var list = await db.ShoppingLists
                                 .Include(l => l.User)
