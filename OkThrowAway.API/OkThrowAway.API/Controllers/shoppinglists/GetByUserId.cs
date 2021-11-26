@@ -21,7 +21,7 @@ namespace OkThrowAway.API.Controllers.shoppinglists
             this.mapper = mapper;
         }
 
-        [HttpGet("/api/shoppinglists/list/{id}")]
+        [HttpGet("/api/shoppinglist/{id}")]
         public async Task<List<ViewModel>> List(int id) => 
             await db.ShoppingLists.ProjectTo<ViewModel>(mapper.ConfigurationProvider)
                                     .Where(l => l.UserId == id)
