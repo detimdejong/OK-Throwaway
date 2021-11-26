@@ -20,6 +20,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build ../../OkThrowAway.Api --no-restore
+      run: dotnet build ../../OkThrowAway.API/OkThrowAway.API/OkThrowAway.API.sln --no-restore
     - name: Test
-      run: dotnet test ../../OkThrowAway.Api --no-build --verbosity normal
+      run: dotnet test ../../OkThrowAway.API/OkThrowAway.API/OkThrowAway.API.sln --no-build --verbosity normal
