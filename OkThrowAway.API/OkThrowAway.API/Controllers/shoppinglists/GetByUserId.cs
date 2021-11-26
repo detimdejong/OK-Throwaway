@@ -32,15 +32,25 @@ namespace OkThrowAway.API.Controllers.shoppinglists
     {
         public int UserId { get; set; }
         public string Name { get; set; }
-        public List<string> Products { get; set; }
+        public List<ProductViewModel> Products { get; set; }
+    }
+
+    public class ProductViewModel
+    {
+        public string ProductName { get; set; }
+        public int Amount { get; set; }
     }
 
     public class Mapping : Profile
     {
         public Mapping()
         {
-            CreateMap<ShoppingList, ViewModel>()
-                .ForMember(dest => dest.Products, orig => orig.MapFrom(l => l.Products.Select(p => p.Product.Name)));
+            CreateMap<ShoppingList, ViewModel>().ForMember(dest => dest.Products, orig => orig.MapFrom(
+                    l => l.Products.Select(p =>
+                        new ProductViewModel {
+                                ProductName = p.Product.Name,
+                                Amount = p.Amount
+                        })));
         }
     }
 
