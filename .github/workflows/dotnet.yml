@@ -17,13 +17,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - name: ls
-      run: ls
     - name: Restore dependencies
-      run: dotnet restore ../../OkThrowAway.API/OkThrowAway.API/OkThrowAway.API.sln
-    - name: ls
-      run: ls
+      run: dotnet restore OkThrowAway.API/OkThrowAway.API/OkThrowAway.API.sln
     - name: Build
-      run: dotnet build ../../OkThrowAway.API/OkThrowAway.API/OkThrowAway.API.sln --no-restore
+      run: dotnet build OkThrowAway.API/OkThrowAway.API/OkThrowAway.API.sln --no-restore
     - name: Test
-      run: dotnet test ../../OkThrowAway.API/OkThrowAway.API/OkThrowAway.API.sln --no-build --verbosity normal
+      run: dotnet test OkThrowAway.API/OkThrowAway.API/OkThrowAway.API.sln --no-build --verbosity normal
