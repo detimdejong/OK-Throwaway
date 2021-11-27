@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     },
     innerContainer: {
         backgroundColor: colors.bluegrey800,
-        height: "94%",
+        height: "90%",
         width: "100%",
         position: "absolute",
         alignItems: "center",
@@ -47,7 +47,6 @@ export default function Home() {
             </div>
 
             <div className={classes.innerContainer}>
-
                 <Paper className={classes.button}>
                     <BsKeyboard size="90%" color={colors.grey800} />
                 </Paper>
