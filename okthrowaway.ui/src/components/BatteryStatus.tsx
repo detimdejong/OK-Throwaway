@@ -5,7 +5,8 @@ import {
     MdBattery50,
     MdBattery60,
     MdBattery80,
-    MdBattery90
+    MdBattery90,
+    MdBatteryFull
 } from "react-icons/md";
 import colors from "../constants/colors";
 
@@ -31,6 +32,7 @@ export default function BatteryStatus(props: BatteryStatusProps) {
         if (batteryPercentage < 60) return <MdBattery60 color={colors.green500} {...iconProps}/>
         if (batteryPercentage < 80) return <MdBattery80 color={colors.green500} {...iconProps}/>
         if (batteryPercentage < 90) return <MdBattery90 color={colors.green500} {...iconProps}/>
+        if (batteryPercentage <= 100) return <MdBatteryFull color={colors.green500} {...iconProps} />
     }, [batteryPercentage]);
 
     return (
