@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OkThrowAway.API.Helpers;
 using OkThrowAway.API.Models;
 
 namespace OkThrowAway.API.Controllers.lists
@@ -51,10 +52,13 @@ namespace OkThrowAway.API.Controllers.lists
                 productInList.Amount += 1;
             }
 
+            var x = await OpenFoodFactHelper.OpenFoodFactAsync("3017620422003");
+
             db.SaveChanges();
 
             return Ok($"Added {product.Name} to list {list.Id}");
         }
+
     }
 
     public class ViewModel
