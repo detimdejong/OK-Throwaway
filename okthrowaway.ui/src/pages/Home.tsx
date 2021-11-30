@@ -48,6 +48,7 @@ const useStyles = makeStyles({
 });
 
 export default function Home() {
+    const barcode = useBarcodeScanner();
     const classes = useStyles();
 
     return (
