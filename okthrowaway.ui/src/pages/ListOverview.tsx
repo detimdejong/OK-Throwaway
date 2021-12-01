@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core";
 import colors from "../constants/colors";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
+import { useParams } from 'react-router';
 
 const useStyles = makeStyles({
     container: {
@@ -22,8 +23,12 @@ const useStyles = makeStyles({
 });
 
 export default function ListOverview() {
+    // barcode or product name
+    const { product } = useParams();
     const classes = useStyles();
     const lists = React.useMemo(() => ["1", "2", "3", "4", "5", "6", "7", "8"], []);
+    
+    const isBarcode = React.useMemo(() => isNaN(Number(product)), [product]);
 
     return (
         <div className={classes.container}>

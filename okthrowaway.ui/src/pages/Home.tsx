@@ -1,8 +1,11 @@
+import React from "react";
 import { makeStyles } from "@mui/styles";
 import colors from "../constants/colors";
 import { Paper, Grid } from "@material-ui/core";
 import { BsKeyboard, BsArrowDown } from "react-icons/bs";
 import BatteryStatus from "../components/BatteryStatus";
+import { useNavigate } from "react-router";
+import useBarcodeScanner from "../hooks/useBarcodeScanner";
 
 const useStyles = makeStyles({
     container: {
@@ -48,19 +51,27 @@ const useStyles = makeStyles({
 });
 
 export default function Home() {
-    const barcode = useBarcodeScanner();
+    const navigate = useNavigate(); 
+    const { barcode, setBarcode } = useBarcodeScanner();
     const classes = useStyles();
+
+    React.useEffect(() => {
+        if (barcode.endsWith(';')) {
+            navigate(`/selectlist/${barcode.replace(';', '')}`);            
+            setBarcode('');
+        }
+    }, [barcode]);
 
     return (
         <div className={classes.container}>
             <div className={classes.statusBar}>
                 <div style={{ marginLeft: 15, float: "right" }}>
-                    <BatteryStatus batteryPercentage={100} />
+                    <BatteryStatus batteryPercentage={75} />
                 </div>
             </div>
 
             <div className={classes.innerContainer}>
-                <Paper className={classes.button}>
+                <Paper className={classes.button} onClick={() => navigate("/findproduct")}>
                     <BsKeyboard size="90%" color={colors.grey800} />
                 </Paper>
 
@@ -80,7 +91,7 @@ export default function Home() {
 
                         <Grid item xs={12} sm={6} md={2}>
                             <div className={classes.dividerItemContainer}>
-                                <p style={{ color: colors.white, fontSize: 30 }}>
+                                <p style={{ color: colors.white, fontSize: "200%" }}>
                                     OF
                                 </p>
                             </div>
