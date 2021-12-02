@@ -33,6 +33,7 @@ namespace OkThrowAway.API.Controllers.products
     {
         public string Name { get; set; }
         public string Barcode { get; set; }
+        public int Id { get; set; }
 
     }
 

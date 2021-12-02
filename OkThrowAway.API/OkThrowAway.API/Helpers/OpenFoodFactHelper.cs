@@ -13,7 +13,7 @@ namespace OkThrowAway.API.Helpers
         {
             HttpClient client = new HttpClient();
 
-
+            string name = null;
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             try
             {
@@ -25,10 +25,14 @@ namespace OkThrowAway.API.Helpers
                 var responseBody = await response.Content.ReadAsStringAsync();
                 // Above three lines can be replaced with new helper method below
                 // string responseBody = await client.GetStringAsync(uri);
-                var json = JsonConvert.DeserializeObject(responseBody);
-                
+                var json = JObject.Parse(responseBody);
 
-                Console.WriteLine(responseBody);
+                var status = json["status"].ToObject<int>();
+                if (status == 0)
+                    return null;
+
+                name = json["product"]["product_name"].ToString();
+                
             }
             catch (HttpRequestException e)
             {
@@ -37,7 +41,7 @@ namespace OkThrowAway.API.Helpers
             }
 
 
-            return "";
+            return name;
         }
     }
 }

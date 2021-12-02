@@ -33,12 +33,39 @@ namespace OkThrowAway.API.Controllers.lists
             if (list == null)
                 return BadRequest("List not found");
 
-            var product = await db.Products.FirstOrDefaultAsync(x => x.Id == addition.ProductId);
+            Product product = null;
 
+            if (addition.ProductId != null)
+            {
+                product = await db.Products.FirstOrDefaultAsync(x => x.Id == addition.ProductId);
+
+            }
+            else if (addition.Barcode != null && product == null)
+            {
+
+                product = await db.Products.FirstOrDefaultAsync(x => x.Barcode == addition.Barcode);
+                if(product == null)
+                {
+                    var productName = await OpenFoodFactHelper.OpenFoodFactAsync(addition.Barcode);
+
+                    if (productName != null)
+                    {
+                        product = new Product()
+                        {
+                            Barcode = addition.Barcode,
+                            Name = productName
+                        };
+
+                        
+                    }
+                }
+            }
+          
             if (product == null)
                 return BadRequest("Product not found");
 
             var productInList = list.Products.FirstOrDefault(p => p.ProductId == product.Id);
+
             if (productInList == null)
             {
                 list.Products.Add(new ProductInList
@@ -52,8 +79,6 @@ namespace OkThrowAway.API.Controllers.lists
                 productInList.Amount += 1;
             }
 
-            var x = await OpenFoodFactHelper.OpenFoodFactAsync("3017620422003");
-
             db.SaveChanges();
 
             return Ok($"Added {product.Name} to list {list.Id}");
@@ -64,6 +89,7 @@ namespace OkThrowAway.API.Controllers.lists
     public class ViewModel
     {
         public int ListId { get; set; }
-        public int ProductId { get; set; }
+        public string Barcode { get; set; } = null;
+        public int? ProductId { get; set; } = null;
     }
 }
