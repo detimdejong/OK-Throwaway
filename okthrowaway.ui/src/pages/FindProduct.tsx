@@ -2,15 +2,13 @@ import React from "react";
 import { List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
 import colors from "../constants/colors";
 import TextField from "@material-ui/core/TextField";
-import { ProductCategory } from "../constants/productCategory";
+import { ProductCategory } from "../types/productCategory";
 import CategoryIcon from "../components/CategoryIcon";
 import { ListItemButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import getProducts from "../components/GetProducts";
+import { Product } from "../types/Product";
 
-interface Product {
-    name: string;
-    category: ProductCategory;
-}
 
 const useStyles = makeStyles({
     container: {
@@ -46,20 +44,32 @@ const useStyles = makeStyles({
 });
 
 interface ItemProps {
-    category: ProductCategory;
+    id: number;
+    category?: ProductCategory;
     name: string;
 }
-
-
 
 export default function FindProduct() {
     const [input, setInput] = React.useState<string | undefined>();
     const [items, setItems] = React.useState<Array<JSX.Element> | undefined>();
+    const [products, setProducts] = React.useState<Array<Product> | undefined>();
     const navigate = useNavigate();
     const classes = useStyles();
 
+    const get = React.useCallback(async () => {
+        await getProducts().then(p => setProducts(p));
+    }, []);
+
+    React.useEffect(() => {
+        get();
+    }, []);
+
+    React.useEffect(() => {
+        console.log(products);
+    }, [products])
+ 
     const Item = (props: ItemProps) => (
-        <ListItem>
+        <ListItem key={props.id}>
             <ListItemButton onClick={() => navigate(`/selectlist/${props.name}`)}>
                 <ListItemIcon>
                     {CategoryIcon(props.category)}
@@ -70,11 +80,11 @@ export default function FindProduct() {
     );
 
     React.useEffect(() => {
-        if (input)
+        if (input && products)
             setItems(products
                         .filter((p) => p.name.toLowerCase().includes(input.toLowerCase()))
                         .sort((a, b) => a.name > b.name ? 1 : -1)
-                        .map((p) => <Item category={p.category} name={p.name} />)
+                        .map((p) => <Item {...p} />)
             );
         else
             setItems(undefined);
@@ -109,8 +119,8 @@ export default function FindProduct() {
     );
 }
 
-
-const products: Product[] = [
+/*
+const productsDefault: Product[] = [
     { category: "Fruit", name: "Citroen" },
     { category: "Brood", name: "Desem pisto bruin" },
     { category: "Brood", name: "Desem pisto wit" },
@@ -189,4 +199,4 @@ const products: Product[] = [
     { category: "Groente", name: "Biologische komkommer" },
     { category: "Groente", name: "chinese kool" },
     { category: "Groente", name: "Tomaten" }
-]
+]*/

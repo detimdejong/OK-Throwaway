@@ -4,6 +4,8 @@ import colors from "../constants/colors";
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { useParams } from 'react-router';
+import getLists from "../components/GetLists";
+import { List } from "../types/List";
 
 const useStyles = makeStyles({
     container: {
@@ -26,10 +28,22 @@ export default function ListOverview() {
     // barcode or product name
     const { product } = useParams();
     const classes = useStyles();
-    const lists = React.useMemo(() => ["1", "2", "3", "4", "5", "6", "7", "8"], []);
+    const [lists, setLists] = React.useState<Array<List | undefined>>();
+   // const lists = React.useMemo(() => ["1", "2", "3", "4", "5", "6", "7", "8"], []);
     
     const isBarcode = React.useMemo(() => isNaN(Number(product)), [product]);
 
+    const get = React.useCallback(async () => {
+        await getLists().then(p => setLists(p));
+    }, []);
+
+    React.useEffect(() => {
+        get();
+    }, []);
+
+    React.useEffect(() => {
+        console.log(lists);
+    }, [lists])
     return (
         <div className={classes.container}>
             <Grid
@@ -38,12 +52,12 @@ export default function ListOverview() {
                 justifyContent="center"
                 alignItems="center"
             >
-                {lists.map((v) => (
+                {lists?.map((v) => (
                     <Grid item xs={3}>
                         <div style={{alignItems: "center", justifyContent: "center", display: "flex" }}>
                             <Paper className={classes.listContainer}>
                                 <div style={{height: "100%", alignItems: "center", justifyContent: "center", display: "flex" }}>
-                                    <p>{v}</p>
+                                    <p>{v?.name}</p>
                                 </div>
                             </Paper>
                         </div>

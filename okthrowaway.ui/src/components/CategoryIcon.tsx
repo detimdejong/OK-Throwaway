@@ -1,4 +1,4 @@
-import { ProductCategory } from "../constants/productCategory";
+import { ProductCategory } from "../types/productCategory";
 import {
     GiSlicedBread,
     GiFruitBowl,
