@@ -57,7 +57,7 @@ export default function Home() {
 
     React.useEffect(() => {
         if (barcode.endsWith(';')) {
-            navigate(`/selectlist/${barcode.replace(';', '')}`);            
+            navigate(`/selectlist/${barcode.replace(';', '')}/true`);            
             setBarcode('');
         }
     }, [barcode]);

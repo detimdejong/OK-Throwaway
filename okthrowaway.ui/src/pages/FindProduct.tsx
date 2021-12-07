@@ -6,7 +6,7 @@ import { ProductCategory } from "../types/productCategory";
 import CategoryIcon from "../components/CategoryIcon";
 import { ListItemButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import getProducts from "../components/GetProducts";
+import { getProducts } from "../Api/api-client";
 import { Product } from "../types/Product";
 
 
@@ -45,8 +45,8 @@ const useStyles = makeStyles({
 
 interface ItemProps {
     id: number;
-    category?: ProductCategory;
     name: string;
+    category?: ProductCategory;
 }
 
 export default function FindProduct() {
@@ -55,6 +55,17 @@ export default function FindProduct() {
     const [products, setProducts] = React.useState<Array<Product> | undefined>();
     const navigate = useNavigate();
     const classes = useStyles();
+
+    const Item = (props: ItemProps) => (
+        <ListItem key={props.id}>
+            <ListItemButton onClick={() => navigate(`/selectlist/${props.id}/false`)}>
+                <ListItemIcon>
+                    {CategoryIcon(props.category)}
+                </ListItemIcon>
+                <ListItemText primary={props.name} style={{ color: colors.grey200 }} />
+            </ListItemButton>
+        </ListItem>
+    );
 
     const get = React.useCallback(async () => {
         await getProducts().then(p => setProducts(p));
@@ -65,26 +76,11 @@ export default function FindProduct() {
     }, []);
 
     React.useEffect(() => {
-        console.log(products);
-    }, [products])
- 
-    const Item = (props: ItemProps) => (
-        <ListItem key={props.id}>
-            <ListItemButton onClick={() => navigate(`/selectlist/${props.name}`)}>
-                <ListItemIcon>
-                    {CategoryIcon(props.category)}
-                </ListItemIcon>
-                <ListItemText primary={props.name} style={{ color: colors.grey200 }} />
-            </ListItemButton>
-        </ListItem>
-    );
-
-    React.useEffect(() => {
         if (input && products)
             setItems(products
-                        .filter((p) => p.name.toLowerCase().includes(input.toLowerCase()))
-                        .sort((a, b) => a.name > b.name ? 1 : -1)
-                        .map((p) => <Item {...p} />)
+                .filter((p) => p.name.toLowerCase().includes(input.toLowerCase()))
+                .sort((a, b) => a.name > b.name ? 1 : -1)
+                .map((p) => <Item {...p} />)
             );
         else
             setItems(undefined);
@@ -118,85 +114,3 @@ export default function FindProduct() {
         </div>
     );
 }
-
-/*
-const productsDefault: Product[] = [
-    { category: "Fruit", name: "Citroen" },
-    { category: "Brood", name: "Desem pisto bruin" },
-    { category: "Brood", name: "Desem pisto wit" },
-    { category: "Brood", name: "Desem pisto meerz" },
-    { category: "Brood", name: "Desem pisto spelt" },
-    { category: "Brood", name: "Pistolet boulogne " },
-    { category: "Brood", name: "Pistolet bruin" },
-    { category: "Brood", name: "Pistolet wit" },
-    { category: "Brood", name: "Kaïserbroodje natural " },
-    { category: "Brood", name: "Triangel meergranen" },
-    { category: "Brood", name: "Italiaanse bol" },
-    { category: "Brood", name: "Luxe roomboter croissant " },
-    { category: "Brood", name: "Meerzaden croissant " },
-    { category: "Brood", name: "Rustiekbroodje meergranen" },
-    { category: "Brood", name: "Tijgerbol " },
-    { category: "Brood", name: "Triomphe broodje" },
-    { category: "Brood", name: "Volkorenbol" },
-    { category: "Brood", name: "L&P Rogge" },
-    { category: "Brood", name: "L&P Volkoren " },
-    { category: "Brood", name: "L&P Spelt" },
-    { category: "Brood", name: "L&P Meerzaden" },
-    { category: "Brood", name: "Chocoladebroodje" },
-    { category: "Brood", name: "Maple pecanvlechtbr" },
-    { category: "Brood", name: "Koffiebroodje" },
-    { category: "Brood", name: "Roomboter appelflap " },
-    { category: "Brood", name: "Kaneelbroodje" },
-    { category: "Brood", name: "Frikandelbroodje" },
-    { category: "Brood", name: "Saucijzenbroodje" },
-    { category: "Brood", name: "Brabants worstenbroodje" },
-    { category: "Brood", name: "Gehaktbal in satesaus" },
-    { category: "Brood", name: "kaasstengel" },
-    { category: "Brood", name: "Focaccia mozarella" },
-    { category: "Brood", name: "Focaccia gegrilde groenten" },
-    { category: "Brood", name: "Focaccia pepperbril" },
-    { category: "Brood", name: "Focaccia mozz tomaat" },
-    { category: "Brood", name: "Kip paprika broodje" },
-    { category: "Brood", name: "AH Kaas-uienbroodje" },
-    { category: "Fruit", name: "Limoen" },
-    { category: "Fruit", name: "Mango" },
-    { category: "Fruit", name: "Ananas" },
-    { category: "Fruit", name: "Galia meloen" },
-    { category: "Fruit", name: "Grapefruit rood" },
-    { category: "Fruit", name: "Mandarijnen " },
-    { category: "Fruit", name: "Mini Watermeloen" },
-    { category: "Fruit", name: "Perssinaasappelen net 2 kg" },
-    { category: "Fruit", name: "Perssinaasappelen per stuk" },
-    { category: "Fruit", name: "Lychees" },
-    { category: "Fruit", name: "Granaatappel" },
-    { category: "Fruit", name: "Bio Banaan" },
-    { category: "Fruit", name: "Pluot pruimen" },
-    { category: "Fruit", name: "Kaki fruit" },
-    { category: "Fruit", name: "Chiquita bananen " },
-    { category: "Groente", name: "Komkommer" },
-    { category: "Groente", name: "Courgette" },
-    { category: "Groente", name: "Avocado" },
-    { category: "Groente", name: "Paprika rood" },
-    { category: "Groente", name: "Prei" },
-    { category: "Groente", name: "Rode peper" },
-    { category: "Groente", name: "Aubergine " },
-    { category: "Groente", name: "Bloemkool" },
-    { category: "Groente", name: "Bospeen" },
-    { category: "Groente", name: "Venkel" },
-    { category: "Groente", name: "Radijs " },
-    { category: "Groente", name: "Knolselderij" },
-    { category: "Groente", name: "Bosui per bos" },
-    { category: "Groente", name: "Spitskool" },
-    { category: "Groente", name: "Paprika groen" },
-    { category: "Groente", name: "Paprika oranje" },
-    { category: "Groente", name: "Paprika geel " },
-    { category: "Groente", name: "Kropsla" },
-    { category: "Groente", name: "Ijsbergsla" },
-    { category: "Groente", name: "Bleekselderij" },
-    { category: "Groente", name: "Jalapeno peper groen per stuk" },
-    { category: "Groente", name: "Tricolor kluitsla " },
-    { category: "Groente", name: "AH bio knoflook groot" },
-    { category: "Groente", name: "Biologische komkommer" },
-    { category: "Groente", name: "chinese kool" },
-    { category: "Groente", name: "Tomaten" }
-]*/

@@ -1,8 +1,7 @@
 import { Product } from "./Product";
 
-export interface List {
+export interface ShoppingList {
     id: number;
     name: string;
     products?: Product[];
-    
 }

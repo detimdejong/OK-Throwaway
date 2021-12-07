@@ -13,7 +13,7 @@ export default function RoutingConfiguration() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/findproduct" element={<FindProduct />}/>
-                <Route path="/selectlist/:product" element={<ListOverview />}/>
+                <Route path="/selectlist/:product/:isBarcode" element={<ListOverview />}/>
             </Routes>
         </Router>
     );
