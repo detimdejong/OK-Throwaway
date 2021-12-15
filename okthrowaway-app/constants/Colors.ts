@@ -1,21 +1,6 @@
-const tintColorLight = '#2f95dc';
-const tintColorDark = '#fff';
+import { Theme } from "@react-navigation/native";
 
-export default {
-  light: {
-    text: '#000',
-    background: '#fff',
-    tint: tintColorLight,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#fff',
-    background: '#000',
-    tint: tintColorDark,
-    tabIconDefault: '#ccc',
-    tabIconSelected: tintColorDark,
-  },
+const colors = {
   /* Red */
   red: '#f44336',
   red50: '#ffebee',
@@ -333,3 +318,28 @@ export default {
   greenAlpha050: 'rgba(143, 242, 100, 0.5)',
   redAlpha050: 'rgba(242, 100, 100, 0.5)'
 };
+export default colors;
+
+const colorScheme = {
+  primary: colors.bluegrey700,
+  background: colors.grey300,
+  card: colors.amber100,
+  text: colors.black,
+  border: colors.black,
+  notification: colors.greenAlpha050,
+  iconFocused: colors.bluegrey700
+}
+export { colorScheme };
+
+const navigationTheme: Theme = {
+  dark: true,
+  colors: {
+    primary: colors.bluegrey100,
+    background: colors.grey300,
+    card: colors.grey400,
+    text: colors.black,
+    border: colors.black,
+    notification: colors.greenAlpha050,
+  }
+}
+export { navigationTheme };
