@@ -7,7 +7,7 @@ import { ColorSchemeName, Pressable } from 'react-native';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import useTheme from '../hooks/useTheme';
-import ProductOverview from "../screens/products/Overview";
+import ProductOverview from "../screens/products/ProductsInListOverview";
 import ListOverview from '../screens/shoppinglists/Overview';
 import AddAlert from '../screens/shoppinglists/AddAlert';
 import { Provider } from "react-native-paper";
@@ -30,7 +30,7 @@ function RootNavigator() {
     <Stack.Navigator>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
-        <Stack.Screen name="ProductOverview" component={ProductOverview} />
+        <Stack.Screen name="ProductInListOverview" component={ProductOverview} />
       </Stack.Group>
     </Stack.Navigator>
   );

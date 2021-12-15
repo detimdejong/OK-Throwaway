@@ -16,7 +16,7 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
         },
       },
-      ProductOverview: 'productOverview',
+      ProductInListOverview: 'productInListOverview',
       NotFound: '*',
     },
   },

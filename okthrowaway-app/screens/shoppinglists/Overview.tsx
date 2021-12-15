@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
-import { colors } from 'react-native-elements';
 import { getShoppingLists } from '../../api/api-client';
+import colors from '../../constants/colors';
 import useTheme from '../../hooks/useTheme';
 import { RootTabScreenProps } from '../../types';
 import { Product } from '../../types/Product';
@@ -56,12 +56,10 @@ const previewData: ShoppingList[] = [
 
 export default function Overview({ navigation }: RootTabScreenProps<'Boodschappenlijstje'>) {
   const [shoppingLists, setShoppingLists] = React.useState<Array<ShoppingList> | undefined>();
-  const [showProducts, setShowProducts] = React.useState<boolean>();
-  const [productOverview, setProductOverview] = React.useState<JSX.Element | undefined>();
   const theme = useTheme();
 
   const onPress = React.useCallback((id: number, products: Product[]) => {
-    navigation.navigate('ProductOverview', { listId: id, products: products});
+    navigation.navigate('ProductInListOverview', { listId: id, products: products });
   }, []);
 
   const getLists = React.useCallback(async () => {
@@ -76,18 +74,18 @@ export default function Overview({ navigation }: RootTabScreenProps<'Boodschappe
     container: {
       flex: 1,
       width: "100%",
-      backgroundColor: theme.background
+      backgroundColor: theme.background,
+      alignItems: "center"
     },
     itemContainer: {
       alignItems: 'center',
       justifyContent: 'center',
       marginTop: 15,
       width: '100%',
-      height: 100,
+      height: 70,
       borderRadius: 20,
-      borderWidth: 1,
-      borderColor: colors.black,
-      backgroundColor: theme.card
+      borderWidth: 0.5,
+      borderColor: colors.black
     },
     text: {
       fontSize: 25
@@ -97,6 +95,7 @@ export default function Overview({ navigation }: RootTabScreenProps<'Boodschappe
   return (
     <View style={styles.container}>
       <FlatList
+        style={{width: "90%"}}
         data={previewData}
         renderItem={({ item }) =>
           <TouchableOpacity style={styles.itemContainer} onPress={() => onPress(item.id, item.products ?? [])}>

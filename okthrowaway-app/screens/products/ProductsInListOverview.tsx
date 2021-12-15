@@ -1,10 +1,10 @@
+import { AntDesign } from '@expo/vector-icons';
 import * as React from 'react';
 import { StyleSheet, View, Text, FlatList } from 'react-native';
 import useTheme from '../../hooks/useTheme';
 import { RootTabScreenProps } from '../../types';
-import { Product } from '../../types/Product';
 
-export default function Overview({ route }: RootTabScreenProps<'ProductOverview'>) {
+export default function ProductInListOverview({ route }: RootTabScreenProps<'ProductInListOverview'>) {
     const { products } = route.params;
     const theme = useTheme();
 
@@ -13,18 +13,20 @@ export default function Overview({ route }: RootTabScreenProps<'ProductOverview'
             flex: 1,
             width: "100%",
             alignItems: 'center',
-            justifyContent: 'flex-start',
+            justifyContent: 'center',
         },
         item: {
-            height: 100,
+            flex: 1,
+            flexDirection: "row",
+            height: 50,
             width: "100%",
-            backgroundColor: theme.card,
             borderColor: theme.border,
-            borderWidth: 1,
-            borderRadius: 20,
+            borderBottomWidth: 0.5,
             marginTop: 10,
-            alignItems: "center",
-            justifyContent: "center"
+            paddingTop: 5,
+            paddingLeft: 15,
+            alignItems: "flex-start",
+            justifyContent: "flex-start"
         }
     });
 
@@ -35,7 +37,12 @@ export default function Overview({ route }: RootTabScreenProps<'ProductOverview'
                 data={products}
                 renderItem={({ item }) => (
                     <View style={styles.item}>
-                        <Text>{item.name}</Text>
+                        <View style={{flex: 1, flexDirection: "row"}}>
+                            <Text style={{ fontSize: 20 }}>{`${item.quantity} x ${item.name}`}</Text>
+                        </View>
+                        <View style={{flex: 0.2}}>
+                            <AntDesign name="delete" size={30} color={theme.text} />
+                        </View>
                     </View>
                 )}
                 keyExtractor={(item) => item.name}
