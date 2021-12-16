@@ -10,6 +10,12 @@ export async function getProducts(listId: number){
     return await get<Product>(`products/${listId}`);
 }
 
+
+export async function getAllProducts(){
+    return await get<Product>(`products/list`);
+}
+
+
 export async function addShoppingList(userId: number, listName: string){
     return await post(`shoppinglist/add`, {
         userId: userId,

@@ -10,6 +10,7 @@ import { ShoppingList } from '../../types/ShoppingList';
 const previewData: ShoppingList[] = [
   {
     name: "List 1",
+    id: 1,
     products: [
       {
         name: "Product 1",
@@ -50,7 +51,8 @@ const previewData: ShoppingList[] = [
     ]
   },
   {
-    name: "List 2"
+    name: "List 2",
+    id: 2
   }
 ]
 

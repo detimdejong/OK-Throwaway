@@ -12,6 +12,7 @@ import ListOverview from '../screens/shoppinglists/Overview';
 import AddAlert from '../screens/shoppinglists/AddAlert';
 import { Provider } from "react-native-paper";
 import { navigationTheme } from '../constants/colors';
+import AddProductToList from '../screens/products/AddProductToList';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -31,6 +32,7 @@ function RootNavigator() {
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="ProductInListOverview" component={ProductOverview} />
+        <Stack.Screen name="AddProductToList" component={AddProductToList} />
       </Stack.Group>
     </Stack.Navigator>
   );
