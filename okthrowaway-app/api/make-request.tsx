@@ -1,5 +1,5 @@
 
-const baseUrl = "https://145.24.238.92:5001/api/";
+const baseUrl = "https://localhost:5001/api/";
 export async function get<TData>(endpoint: string) {
     console.log(`${baseUrl}${endpoint}`);
     return await fetch(`${baseUrl}${endpoint}`)

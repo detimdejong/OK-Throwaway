@@ -15,6 +15,14 @@ export async function getAllProducts(){
     return await get<Product>(`products/list`);
 }
 
+export async function addProductToList(listId: number, product: number){
+    return await post(`shoppinglist/addproduct`,
+    {
+        listId: listId,
+        product: product,
+        isBarcode: false
+    });
+}
 
 export async function addShoppingList(userId: number, listName: string){
     return await post(`shoppinglist/add`, {

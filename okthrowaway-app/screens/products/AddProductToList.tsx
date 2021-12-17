@@ -1,7 +1,7 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
-import { StyleSheet, View, Text, FlatList, Pressable, TextInput } from 'react-native';
-import { getAllProducts } from '../../api/api-client';
+import { StyleSheet, View, Text, FlatList, Pressable, TextInput, TouchableOpacityBase, TouchableOpacity } from 'react-native';
+import { addProductToList, getAllProducts } from '../../api/api-client';
 import useTheme from '../../hooks/useTheme';
 import { RootTabScreenProps } from '../../types';
 import { Product } from '../../types/Product';
@@ -10,6 +10,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
     const [products, setProducts] = React.useState<Array<Product> | undefined>();
     const [input, setInput] = React.useState<string | undefined>();
     const theme = useTheme();
+    const {listId}=route.params;
 
 
     const styles = StyleSheet.create({
@@ -44,6 +45,12 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
             borderRadius: 10,
         }
     });
+    
+    const add = React.useCallback(async(id: number)=>{
+
+            await addProductToList(listId, id);
+
+    },[]);
 
     const get = React.useCallback(async () => {
         await getAllProducts().then(p => setProducts(p));
@@ -70,13 +77,18 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
             <FlatList
                 style={{ width: "100%" }}
                 data={products}
-                renderItem={({ item }) => (
+                renderItem={
+                    
+                    ({ item }) => (
+                        <TouchableOpacity onPress={()=> add(item.id)}>
                     <View style={styles.item}>
                         <View style={{flex: 1, flexDirection: "row"}}>
                             <Text style={{ fontSize: 20 }}>{`${item.name}`}</Text>
                         </View>
                     </View>
-                )}
+                    </TouchableOpacity>
+                )
+            }
                 keyExtractor={(item) => item.name}
             />
         </View>
