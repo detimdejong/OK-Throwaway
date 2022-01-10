@@ -1,5 +1,5 @@
 import React from "react";
-import { List, ListItem, ListItemIcon, ListItemText, makeStyles } from "@material-ui/core";
+import { List, ListItem, ListItemIcon, ListItemText, makeStyles, Paper, Button } from "@material-ui/core";
 import colors from "../constants/colors";
 import TextField from "@material-ui/core/TextField";
 import { ProductCategory } from "../types/productCategory";
@@ -8,7 +8,6 @@ import { ListItemButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../Api/api-client";
 import { Product } from "../types/Product";
-
 
 const useStyles = makeStyles({
     container: {
@@ -23,7 +22,9 @@ const useStyles = makeStyles({
     inputContainer: {
         width: "30%",
         height: "75%",
-        background: colors.bluegrey800
+        background: colors.bluegrey800,
+        justifyContent: "center",
+        display: "flex"
     },
     productOptionsContainer: {
         marginTop: 50,
@@ -89,26 +90,54 @@ export default function FindProduct() {
     return (
         <div className={classes.container}>
             <div className={classes.inputContainer}>
-                <TextField
-                    className={classes.textField}
-                    placeholder="Product"
-                    InputProps={{
-                        className: classes.input
-                    }}
-                    onChange={(ev) => setInput(ev.target.value)}
-                />
-                <div className={classes.productOptionsContainer}>
-                    {items &&
-                        <List style={{
-                            width: '100%',
-                            position: 'relative',
-                            overflow: 'auto',
-                            maxHeight: "90%",
-                            background: colors.bluegrey700
-                        }}>
-                            {items}
-                        </List>
+                <div style={{ width: "100%" }}>
+                    <TextField
+                        className={classes.textField}
+                        placeholder="Product"
+                        InputProps={{
+                            className: classes.input
+                        }}
+                        onChange={(ev) => setInput(ev.target.value)}
+                    />
+                    {items && items?.length > 0 &&
+                        <div className={classes.productOptionsContainer}>
+                            <List style={{
+                                width: '100%',
+                                position: 'relative',
+                                overflow: 'auto',
+                                maxHeight: "90%",
+                                background: colors.bluegrey700
+                            }}>
+                                {items}
+                            </List>
+                        </div>
                     }
+
+                    {items && items?.length === 0 && input &&
+                        <Paper style={{
+                            width: "100%",
+                            height: "60%",
+                            marginTop: "25%",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            display: "flex",
+                            background: colors.bluegrey900,
+                            padding: "5%",
+                            flexDirection: "column"
+                        }}>
+                            <>
+                                <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "center", display: "flex", textAlign: "center", marginBottom: "5%" }}>
+                                    <p style={{ fontSize: "300%", margin: 5, color: colors.grey500 }}>{`'${input}' NIET GEVONDEN`}</p>
+                                </div>
+                                <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "flex-end", display: "flex" }}>
+                                    <Button style={{ minWidth: "80%", backgroundColor: colors.amber100 }}>
+                                        <p style={{ fontSize: "300%", margin: 5, color: colors.grey800 }}>TOEVOEGEN</p>
+                                    </Button>
+                                </div>
+                            </>
+                        </Paper>
+                    }
+
                 </div>
             </div>
         </div>
