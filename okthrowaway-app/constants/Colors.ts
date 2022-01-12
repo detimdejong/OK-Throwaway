@@ -316,7 +316,13 @@ const colors = {
   white: '#ffffff',
   black: '#000000',
   greenAlpha050: 'rgba(143, 242, 100, 0.5)',
-  redAlpha050: 'rgba(242, 100, 100, 0.5)'
+  redAlpha050: 'rgba(242, 100, 100, 0.5)',
+
+   /*  theme trello */
+   customThemeBlack: '#1c1f23',
+   customThemeOffWhite: '#e6e6e7',
+   customThemeGrey: '#909194',
+   customThemeDarkGrey: '#333539'
 };
 export default colors;
 

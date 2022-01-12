@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         height: "100%",
         width: "100%",
         position: "absolute",
-        backgroundColor: colors.bluegrey800,
+        backgroundColor: colors.customThemeBlack,
         display: "flex",
         alignItems: "center",
         justifyContent: "center"

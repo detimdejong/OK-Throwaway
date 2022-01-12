@@ -12,11 +12,11 @@ const useStyles = makeStyles({
         height: "100%",
         width: "100%",
         position: "absolute",
-        backgroundColor: colors.bluegrey800
+        backgroundColor: colors.customThemeBlack
     },
     innerContainer: {
-        backgroundColor: colors.bluegrey800,
-        height: "90%",
+        backgroundColor: colors.customThemeBlack,
+        height: "100%",
         width: "100%",
         position: "absolute",
         alignItems: "center",
@@ -24,7 +24,7 @@ const useStyles = makeStyles({
         display: "flex"
     },
     button: {
-        backgroundColor: colors.amber100,
+        backgroundColor: colors.bluegrey800,
         height: "80%",
         width: "40%",
         display: "flex",
@@ -64,46 +64,14 @@ export default function Home() {
 
     return (
         <div className={classes.container}>
-            <div className={classes.statusBar}>
-                <div style={{ marginLeft: 15, float: "right" }}>
-                    <BatteryStatus batteryPercentage={75} />
-                </div>
-            </div>
 
             <div className={classes.innerContainer}>
-                <Paper className={classes.button} onClick={() => navigate("/findproduct")}>
-                    <BsKeyboard size="90%" color={colors.grey800} />
-                </Paper>
+                <div style={{ backgroundColor:  colors.customThemeBlack}} className={classes.button} onClick={() => navigate("/findproduct")}>
 
-                <div style={{ height: "90%", position: "absolute", justifyContent: "center" }}>
-                    <Grid
-                        container
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center"
-                        style={{ height: "100%" }}
-                    >
-                        <Grid item xs={12} sm={6} md={5}>
-                            <div className={classes.dividerItemContainer}>
-                                <div className={classes.divider} />
-                            </div>
-                        </Grid>
-
-                        <Grid item xs={12} sm={6} md={2}>
-                            <div className={classes.dividerItemContainer}>
-                                <p style={{ color: colors.white, fontSize: "200%" }}>
-                                    OF
-                                </p>
-                            </div>
-                        </Grid>
-
-                        <Grid xs={12} sm={6} md={5}>
-                            <div className={classes.dividerItemContainer}>
-                                <div className={classes.divider} />
-                            </div>
-                        </Grid>
-                    </Grid>
+                    <BsKeyboard size="90%" color={colors.customThemeGrey} />
                 </div>
+
+              
 
                 <div style={{ height: "80%", width: "40%", margin: "3%" }}>
                     <Grid
@@ -116,10 +84,10 @@ export default function Home() {
 
                         <Grid item xs={12} sm={12} md={10}>
                             <div className={classes.dividerItemContainer}>
-                                <p style={{ fontSize: "300%" }}>
+                                <p style={{ fontSize: "300%" , color:colors.customThemeGrey }} >
                                     SCAN DE BARCODE
                                 </p>
-                                <BsArrowDown size="100%" />
+                                <BsArrowDown size="100%" color={colors.customThemeGrey}/>
                             </div>
                         </Grid>
                     </Grid>

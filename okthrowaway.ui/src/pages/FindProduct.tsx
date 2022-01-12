@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         height: "100%",
         width: "100%",
         position: "absolute",
-        background: colors.bluegrey800,
+        background: colors.customThemeBlack,
         alignItems: "center",
         justifyContent: "center",
         display: "flex"
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     inputContainer: {
         width: "30%",
         height: "75%",
-        background: colors.bluegrey800,
+        background: colors.customThemeBlack,
         justifyContent: "center",
         display: "flex"
     },
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     },
     input: {
         textAlign: "center",
-        color: colors.white,
+        color: colors.customThemeGrey,
         fontSize: 45
     },
     list: {
@@ -106,7 +106,7 @@ export default function FindProduct() {
                                 position: 'relative',
                                 overflow: 'auto',
                                 maxHeight: "90%",
-                                background: colors.bluegrey700
+                                background: colors.customThemeBlack
                             }}>
                                 {items}
                             </List>
@@ -121,17 +121,17 @@ export default function FindProduct() {
                             justifyContent: "center",
                             alignItems: "center",
                             display: "flex",
-                            background: colors.bluegrey900,
+                            background: colors.customThemeBlack,
                             padding: "5%",
                             flexDirection: "column"
                         }}>
                             <>
                                 <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "center", display: "flex", textAlign: "center", marginBottom: "5%" }}>
-                                    <p style={{ fontSize: "300%", margin: 5, color: colors.grey500 }}>{`'${input}' NIET GEVONDEN`}</p>
+                                    <p style={{ fontSize: "300%", margin: 5, color: colors.customThemeGrey }}>{`'${input}' NIET GEVONDEN`}</p>
                                 </div>
                                 <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "flex-end", display: "flex" }}>
-                                    <Button style={{ minWidth: "80%", backgroundColor: colors.amber100 }}>
-                                        <p style={{ fontSize: "300%", margin: 5, color: colors.grey800 }}>TOEVOEGEN</p>
+                                    <Button style={{ minWidth: "80%", backgroundColor: colors.customThemeDarkGrey }}>
+                                        <p style={{ fontSize: "300%", margin: 5, color: colors.customThemeGrey }}>TOEVOEGEN</p>
                                     </Button>
                                 </div>
                             </>
