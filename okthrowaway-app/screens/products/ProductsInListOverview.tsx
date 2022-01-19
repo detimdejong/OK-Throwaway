@@ -1,18 +1,18 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
-import { StyleSheet, View, Text, FlatList, Pressable } from 'react-native';
+import { StyleSheet, View, Text, FlatList, Pressable, TouchableOpacity } from 'react-native';
+import { post } from '../../api/make-request';
 import useTheme from '../../hooks/useTheme';
 import { RootTabScreenProps } from '../../types';
+import { Product } from '../../types/Product';
+import { getProducts, removeProductFromList } from '../../api/api-client';
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function ProductInListOverview({ route, navigation }: RootTabScreenProps<'ProductInListOverview'>) {
-    const { listId, products } = route.params;
+    const [products, setProducts] = React.useState<Array<Product>>([]);
+    const { listId } = route.params;
     const theme = useTheme();
-
-    const addProduct = React.useCallback(() => {
-         navigation.navigate("AddProductToList", { listId: listId });
-    }, [navigation, listId]);
-
-
+    
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -35,14 +35,23 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
         }
     });
 
-    React.useEffect(() => {
-        
-        navigation.setOptions({headerRight:()=>
-            <Pressable onPress={addProduct}>
-        <Ionicons name="add" size={24} color="black" />
-        </Pressable>
+    const get = React.useCallback(async () => await getProducts(listId).then(p => setProducts(p)), [listId]);
+
+    const addProduct = React.useCallback(() => {
+        navigation.navigate("AddProductToList", { listId: listId });
+    }, [navigation, listId]);
+
+    const onDelete = React.useCallback(async (itemId) => {
+        await removeProductFromList(listId, itemId, true);
+        await get();
+    }, [listId]);
+
+    useFocusEffect(() => {
+        React.useCallback(() => {
+            console.log("FOCUSSED");
+            return () => { };
+        }, [navigation])
     });
-      }, [navigation]);
 
     return (
         <View style={styles.container}>
@@ -51,11 +60,15 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
                 data={products}
                 renderItem={({ item }) => (
                     <View style={styles.item}>
-                        <View style={{flex: 1, flexDirection: "row"}}>
+                        <View style={{ flex: 1, flexDirection: "row" }}>
                             <Text style={{ fontSize: 20 }}>{`${item.quantity} x ${item.name}`}</Text>
                         </View>
-                        <View style={{flex: 0.2}}>
-                            <AntDesign name="delete" size={30} color={theme.text} />
+                        <View style={{ flex: 0.2 }}>
+                            <TouchableOpacity
+                                onPress={() => onDelete(item.id)}
+                            >
+                                <AntDesign name="delete" size={30} color={theme.text} />
+                            </TouchableOpacity>
                         </View>
                     </View>
                 )}

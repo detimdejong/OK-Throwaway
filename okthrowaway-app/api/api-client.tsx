@@ -30,3 +30,11 @@ export async function addShoppingList(userId: number, listName: string){
         name: listName
     });
 }
+
+export async function removeProductFromList(listId: number, productId: number, removeAll: boolean) {
+    return await post(`shoppinglist/removeproduct`, {
+        listId: listId,
+        productId: productId,
+        removeAll: removeAll
+    });
+}
