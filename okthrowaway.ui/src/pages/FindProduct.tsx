@@ -8,8 +8,9 @@ import { ListItemButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../Api/api-client";
 import { Product } from "../types/Product";
-import Keyboard from "react-simple-keyboard";
 import KeyboardWrapper from "../components/KeyboardWrapper";
+import Modal from "react-modal";
+import { Dock } from "react-dock";
 
 const useStyles = makeStyles({
     container: {
@@ -58,6 +59,7 @@ export default function FindProduct() {
     const [products, setProducts] = React.useState<Array<Product> | undefined>();
     const navigate = useNavigate();
     const classes = useStyles();
+    const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
     const Item = (props: ItemProps) => (
         <ListItem key={props.id}>
@@ -103,6 +105,7 @@ export default function FindProduct() {
                                 className: classes.input
                             }}
                             onChange={(ev) => setInput(ev.target.value)}
+                            onFocus={() => setIsOpen(true)}
                             value={input}
                         />
                         {items && items?.length > 0 &&
@@ -140,13 +143,12 @@ export default function FindProduct() {
                         }
 
                     </div>
-
-
                 </div>
-                <KeyboardWrapper onChange={setInput} />
-
             </div>
 
+            <Dock position='bottom' isVisible={isOpen}>
+                <KeyboardWrapper onChange={setInput} onClose={() => setIsOpen(false)} />
+            </Dock>
         </>
     );
 }
