@@ -129,11 +129,6 @@ export default function FindProduct() {
                                 <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "center", display: "flex", textAlign: "center", marginBottom: "5%" }}>
                                     <p style={{ fontSize: "300%", margin: 5, color: colors.customThemeGrey }}>{`'${input}' NIET GEVONDEN`}</p>
                                 </div>
-                                <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "flex-end", display: "flex" }}>
-                                    <Button style={{ minWidth: "80%", backgroundColor: colors.customThemeDarkGrey }}>
-                                        <p style={{ fontSize: "300%", margin: 5, color: colors.customThemeGrey }}>TOEVOEGEN</p>
-                                    </Button>
-                                </div>
                             </>
                         </Paper>
                     }
