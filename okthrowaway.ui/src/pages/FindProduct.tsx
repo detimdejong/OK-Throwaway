@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { List, ListItem, ListItemIcon, ListItemText, makeStyles, Paper, Button } from "@material-ui/core";
 import colors from "../constants/colors";
 import TextField from "@material-ui/core/TextField";
@@ -8,6 +8,8 @@ import { ListItemButton } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../Api/api-client";
 import { Product } from "../types/Product";
+import Keyboard from "react-simple-keyboard";
+import KeyboardWrapper from "../components/KeyboardWrapper";
 
 const useStyles = makeStyles({
     container: {
@@ -69,7 +71,9 @@ export default function FindProduct() {
     );
 
     const get = React.useCallback(async () => {
-        await getProducts().then(p => setProducts(p));
+        await getProducts().then(p => {
+            setProducts(p);
+        });
     }, []);
 
     React.useEffect(() => {
@@ -88,53 +92,61 @@ export default function FindProduct() {
     }, [input]);
 
     return (
-        <div className={classes.container}>
-            <div className={classes.inputContainer}>
-                <div style={{ width: "100%" }}>
-                    <TextField
-                        className={classes.textField}
-                        placeholder="Product"
-                        InputProps={{
-                            className: classes.input
-                        }}
-                        onChange={(ev) => setInput(ev.target.value)}
-                    />
-                    {items && items?.length > 0 &&
-                        <div className={classes.productOptionsContainer}>
-                            <List style={{
-                                width: '100%',
-                                position: 'relative',
-                                overflow: 'auto',
-                                maxHeight: "90%",
-                                background: colors.customThemeBlack
-                            }}>
-                                {items}
-                            </List>
-                        </div>
-                    }
+        <>
+            <div className={classes.container}>
+                <div className={classes.inputContainer}>
+                    <div style={{ width: "100%" }}>
+                        <TextField
+                            className={classes.textField}
+                            placeholder="Product"
+                            InputProps={{
+                                className: classes.input
+                            }}
+                            onChange={(ev) => setInput(ev.target.value)}
+                            value={input}
+                        />
+                        {items && items?.length > 0 &&
+                            <div className={classes.productOptionsContainer}>
+                                <List style={{
+                                    width: '100%',
+                                    position: 'relative',
+                                    overflow: 'auto',
+                                    maxHeight: "90%",
+                                    background: colors.customThemeBlack
+                                }}>
+                                    {items}
+                                </List>
+                            </div>
+                        }
 
-                    {items && items?.length === 0 && input &&
-                        <Paper style={{
-                            width: "100%",
-                            height: "60%",
-                            marginTop: "25%",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            display: "flex",
-                            background: colors.customThemeBlack,
-                            padding: "5%",
-                            flexDirection: "column"
-                        }}>
-                            <>
-                                <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "center", display: "flex", textAlign: "center", marginBottom: "5%" }}>
-                                    <p style={{ fontSize: "300%", margin: 5, color: colors.customThemeGrey }}>{`'${input}' NIET GEVONDEN`}</p>
-                                </div>
-                            </>
-                        </Paper>
-                    }
+                        {items && items?.length === 0 && input &&
+                            <Paper style={{
+                                width: "100%",
+                                height: "60%",
+                                marginTop: "25%",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                display: "flex",
+                                background: colors.customThemeBlack,
+                                padding: "5%",
+                                flexDirection: "column"
+                            }}>
+                                <>
+                                    <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "center", display: "flex", textAlign: "center", marginBottom: "5%" }}>
+                                        <p style={{ fontSize: "300%", margin: 5, color: colors.customThemeGrey }}>{`'${input}' NIET GEVONDEN`}</p>
+                                    </div>
+                                </>
+                            </Paper>
+                        }
+
+                    </div>
+
 
                 </div>
+                <KeyboardWrapper onChange={setInput} />
+
             </div>
-        </div>
+
+        </>
     );
 }
