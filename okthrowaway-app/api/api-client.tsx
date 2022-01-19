@@ -7,7 +7,7 @@ export async function getShoppingLists(userId: number) {
 }
 
 export async function getProducts(listId: number){
-    return await get<Product>(`products/${listId}`);
+    return await get<Product>(`shoppinglist/products/${listId}`);
 }
 
 
