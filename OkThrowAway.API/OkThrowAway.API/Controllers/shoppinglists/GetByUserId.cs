@@ -38,6 +38,7 @@ namespace OkThrowAway.API.Controllers.shoppinglists
 
     public class ProductViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
     }
@@ -49,6 +50,7 @@ namespace OkThrowAway.API.Controllers.shoppinglists
             CreateMap<ShoppingList, ViewModel>().ForMember(dest => dest.Products, orig => orig.MapFrom(
                     l => l.Products.Select(p =>
                         new ProductViewModel {
+                                Id = p.Product.Id,
                                 Name = p.Product.Name,
                                 Quantity = p.Amount
                         })));
