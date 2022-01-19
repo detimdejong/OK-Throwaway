@@ -7,61 +7,16 @@ import { RootTabScreenProps } from '../../types';
 import { Product } from '../../types/Product';
 import { ShoppingList } from '../../types/ShoppingList';
 
-const previewData: ShoppingList[] = [
-  {
-    name: "List 1",
-    id: 1,
-    products: [
-      {
-        name: "Product 1",
-        quantity: 4
-      },      
-      {
-        name: "Product 2",
-        quantity: 4
-      },
-      {
-        name: "Product 3",
-        quantity: 4
-      },
-      {
-        name: "Product 4",
-        quantity: 4
-      },
-      {
-        name: "Product 5",
-        quantity: 4
-      },
-      {
-        name: "Product 6",
-        quantity: 4
-      },
-      {
-        name: "Product 7",
-        quantity: 4
-      },
-      {
-        name: "Product 8",
-        quantity: 4
-      },
-      {
-        name: "Product 9",
-        quantity: 4
-      }
-    ]
-  },
-  {
-    name: "List 2",
-    id: 2
-  }
-]
+interface Props extends RootTabScreenProps<'Boodschappenlijstje'> {
+  reload: boolean;
+}
 
-export default function Overview({ navigation }: RootTabScreenProps<'Boodschappenlijstje'>) {
+export default function Overview({ navigation, reload }: Props) {
   const [shoppingLists, setShoppingLists] = React.useState<Array<ShoppingList> | undefined>();
   const theme = useTheme();
 
-  const onPress = React.useCallback((id: number, products: Product[]) => {
-    navigation.navigate('ProductInListOverview', { listId: id, products: products });
+  const onPress = React.useCallback((id: number) => {
+    navigation.navigate('ProductInListOverview', { listId: id });
   }, []);
 
   const getLists = React.useCallback(async () => {
@@ -69,8 +24,8 @@ export default function Overview({ navigation }: RootTabScreenProps<'Boodschappe
   }, []);
 
   React.useEffect(() => {
-    // getLists();
-  }, []);
+    getLists();
+  }, [navigation, reload]);
 
   const styles = StyleSheet.create({
     container: {
@@ -98,9 +53,9 @@ export default function Overview({ navigation }: RootTabScreenProps<'Boodschappe
     <View style={styles.container}>
       <FlatList
         style={{width: "90%"}}
-        data={previewData}
+        data={shoppingLists}
         renderItem={({ item }) =>
-          <TouchableOpacity style={styles.itemContainer} onPress={() => onPress(item.id, item.products ?? [])}>
+          <TouchableOpacity style={styles.itemContainer} onPress={() => onPress(item.id)}>
             <Text style={styles.text}>{item.name}</Text>
           </TouchableOpacity>
         }
