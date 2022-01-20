@@ -146,8 +146,8 @@ export default function FindProduct() {
                 </div>
             </div>
 
-            <Dock position='bottom' isVisible={isOpen}>
-                <KeyboardWrapper onChange={setInput} onClose={() => setIsOpen(false)} />
+            <Dock position='bottom' isVisible={isOpen} fluid={true} defaultSize={0.6}>
+                <KeyboardWrapper onChange={setInput} onClose={() => setIsOpen(false)}/>
             </Dock>
         </>
     );
