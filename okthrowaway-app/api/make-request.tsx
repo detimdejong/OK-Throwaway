@@ -1,7 +1,5 @@
-
-const baseUrl = "https://localhost:5001/api/";
+const baseUrl = "http://www.okthrowaway.somee.com/api/";
 export async function get<TData>(endpoint: string) {
-    console.log(`${baseUrl}${endpoint}`);
     return await fetch(`${baseUrl}${endpoint}`)
         .then(res => res.json())
         .then(json => { return json as TData[] })

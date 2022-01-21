@@ -1,2 +1,2 @@
-const url = "http://localhost:5000/api";
+const url = "http://www.okthrowaway.somee.com/api/";
 export default url;
