@@ -27,7 +27,7 @@ namespace OkThrowAway.API.Controllers.shoppinglists
             if (list == null)
                 return BadRequest($"List {model.ListId} not found");
 
-            var product = list.Products.FirstOrDefault(p => p.Id == model.ProductId);
+            var product = list.Products.FirstOrDefault(p => p.ProductId == model.ProductId);
 
             if (product == null)
                 return BadRequest($"Product {model.ProductId} not on list {list.Id}");
