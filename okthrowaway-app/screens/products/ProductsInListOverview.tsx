@@ -47,14 +47,21 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
     }, [listId]);
 
     React.useEffect(() => {
-        navigation.setOptions({headerRight:()=>
-            <Pressable onPress={addProduct}>
-        <Ionicons name="add" size={24} color="black" />
-        </Pressable>
-    });
-      }, [navigation]);
+        navigation.setOptions({
+            headerRight: () =>
+                <Pressable onPress={addProduct}>
+                    <Ionicons name="add" size={24} color="black" />
+                </Pressable>
+        });
+    }, [navigation]);
 
     React.useEffect(() => { get() }, []);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            get();
+        }, [])
+    )
 
     return (
         <View style={styles.container}>

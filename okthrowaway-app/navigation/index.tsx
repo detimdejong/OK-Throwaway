@@ -53,7 +53,7 @@ function BottomTabNavigator() {
         }}>
         <BottomTab.Screen
           name="Boodschappenlijstje"
-          component={ListOverview}
+          component={(props) => <ListOverview {...props} reload={visible} />}
           options={({ navigation }: RootTabScreenProps<'Boodschappenlijstje'>) => ({
             title: 'Boodschappenlijstjes',
             tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
