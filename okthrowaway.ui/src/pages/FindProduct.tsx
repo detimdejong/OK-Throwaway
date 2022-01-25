@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 import { getProducts } from "../Api/api-client";
 import { Product } from "../types/Product";
 import KeyboardWrapper from "../components/KeyboardWrapper";
-import Modal from "react-modal";
 import { Dock } from "react-dock";
 
 const useStyles = makeStyles({
@@ -23,7 +22,7 @@ const useStyles = makeStyles({
         display: "flex"
     },
     inputContainer: {
-        width: "30%",
+        width: "90%",
         height: "75%",
         background: colors.customThemeBlack,
         justifyContent: "center",
@@ -31,7 +30,7 @@ const useStyles = makeStyles({
     },
     productOptionsContainer: {
         marginTop: 50,
-        height: "90%",
+        height: "40%",
         width: "100%",
     },
     textField: {
@@ -123,10 +122,7 @@ export default function FindProduct() {
                         }
 
                         {items && items?.length === 0 && input &&
-                            <Paper style={{
-                                width: "100%",
-                                height: "60%",
-                                marginTop: "25%",
+                            <div style={{
                                 justifyContent: "center",
                                 alignItems: "center",
                                 display: "flex",
@@ -134,20 +130,18 @@ export default function FindProduct() {
                                 padding: "5%",
                                 flexDirection: "column"
                             }}>
-                                <>
-                                    <div style={{ width: "100%", height: "50%", justifyContent: "center", alignItems: "center", display: "flex", textAlign: "center", marginBottom: "5%" }}>
-                                        <p style={{ fontSize: "300%", margin: 5, color: colors.customThemeGrey }}>{`'${input}' NIET GEVONDEN`}</p>
-                                    </div>
-                                </>
-                            </Paper>
+                                <div style={{ height: "50%", justifyContent: "center", alignItems: "center", display: "flex", textAlign: "center", marginBottom: "5%" }}>
+                                    <p style={{ fontSize: "300%", margin: 5, color: colors.grey400 }}>{`'${input}' NIET GEVONDEN`}</p>
+                                </div>
+                            </div>
                         }
 
                     </div>
                 </div>
             </div>
 
-            <Dock position='bottom' isVisible={isOpen} fluid={true} defaultSize={0.6}>
-                <KeyboardWrapper onChange={setInput} onClose={() => setIsOpen(false)}/>
+            <Dock position='bottom' isVisible={isOpen} fluid={true} defaultSize={0.4}>
+                <KeyboardWrapper onChange={setInput} onClose={() => setIsOpen(false)} />
             </Dock>
         </>
     );
