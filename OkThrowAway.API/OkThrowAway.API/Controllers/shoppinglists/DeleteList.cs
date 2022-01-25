@@ -20,11 +20,12 @@ namespace OkThrowAway.API.Controllers.shoppinglists
         [HttpGet("/api/shoppinglist/delete/{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var listToDelete = await db.ShoppingLists.FirstOrDefaultAsync(l => l.Id == id);
+            var listToDelete = await db.ShoppingLists.Include(l => l.Products).FirstOrDefaultAsync(l => l.Id == id);
 
             if (listToDelete == null)
                 return BadRequest($"List {id} does not exist");
 
+            db.ProductsInLists.RemoveRange(listToDelete.Products);
             db.ShoppingLists.Remove(listToDelete);
 
             db.SaveChanges();
