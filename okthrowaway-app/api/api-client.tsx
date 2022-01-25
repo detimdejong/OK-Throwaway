@@ -40,5 +40,5 @@ export async function removeProductFromList(listId: number, productId: number, r
 }
 
 export async function deleteList(listId: number){
-    return await httpDelete(`shoppinglist/delete/${listId}`)
+    return await get(`shoppinglist/delete/${listId}`)
 }
