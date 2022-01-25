@@ -1,6 +1,6 @@
 import { Product } from "../types/Product";
 import { ShoppingList } from "../types/ShoppingList";
-import { get, post } from "./make-request";
+import { get, post, httpDelete } from "./make-request";
 
 export async function getShoppingLists(userId: number) {
     return await get<ShoppingList>(`shoppinglist/${userId}`);
@@ -37,4 +37,8 @@ export async function removeProductFromList(listId: number, productId: number, r
         productId: productId,
         removeAll: removeAll
     });
+}
+
+export async function deleteList(listId: number){
+    return await httpDelete(`shoppinglist/delete/${listId}`)
 }

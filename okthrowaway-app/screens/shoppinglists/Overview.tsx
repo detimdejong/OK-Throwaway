@@ -1,6 +1,7 @@
+import { AntDesign } from '@expo/vector-icons';
 import * as React from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
-import { getShoppingLists } from '../../api/api-client';
+import { deleteList, getShoppingLists, removeProductFromList } from '../../api/api-client';
 import colors from '../../constants/colors';
 import useTheme from '../../hooks/useTheme';
 import { RootTabScreenProps } from '../../types';
@@ -22,6 +23,11 @@ export default function Overview({ navigation, reload }: Props) {
   const getLists = React.useCallback(async () => {
     await getShoppingLists(1).then(res => setShoppingLists(res));
   }, []);
+
+  const onDelete = React.useCallback(async (listId) => {
+    await deleteList(listId);
+    await getLists();
+}, []);
 
   React.useEffect(() => {
     getLists();
@@ -57,6 +63,11 @@ export default function Overview({ navigation, reload }: Props) {
         renderItem={({ item }) =>
           <TouchableOpacity style={styles.itemContainer} onPress={() => onPress(item.id)}>
             <Text style={styles.text}>{item.name}</Text>
+            <TouchableOpacity
+                                onPress={() => onDelete(item.id)}
+                            >
+                                <AntDesign name="delete" size={30} color={theme.text} />
+                            </TouchableOpacity>
           </TouchableOpacity>
         }
         keyExtractor={(item) => item.name}

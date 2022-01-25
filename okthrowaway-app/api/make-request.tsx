@@ -14,3 +14,8 @@ export async function post(endpoint: string, body: any) {
         body: JSON.stringify(body)
     }).then(res => res.status);
 }
+
+export async function httpDelete(endpoint: string){
+    return await fetch(`${baseUrl}${endpoint}`, { method: 'GET'})
+    .then(res => res.status)
+}

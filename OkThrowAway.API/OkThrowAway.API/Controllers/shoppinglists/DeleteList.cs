@@ -17,7 +17,7 @@ namespace OkThrowAway.API.Controllers.shoppinglists
             this.db = db;
         }
 
-        [HttpDelete("/api/shoppinglist/delete/{id}")]
+        [HttpGet("/api/shoppinglist/delete/{id}")]
         public async Task<ActionResult> Delete(int id)
         {
             var listToDelete = await db.ShoppingLists.FirstOrDefaultAsync(l => l.Id == id);
