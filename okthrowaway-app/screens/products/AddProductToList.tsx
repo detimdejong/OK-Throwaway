@@ -26,6 +26,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
             height: 50,
             width: "100%",
             borderColor: theme.border,
+            backgroundColor: theme.border,
             borderBottomWidth: 0.5,
             marginTop: 10,
             paddingTop: 5,
@@ -43,6 +44,8 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
             borderWidth: 0.5,
             borderColor: theme.border,
             borderRadius: 10,
+            backgroundColor: theme.border,
+           color: theme.text
         }
     });
     
@@ -83,7 +86,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
                         <TouchableOpacity onPress={()=> add(item.id)}>
                     <View style={styles.item}>
                         <View style={{flex: 1, flexDirection: "row"}}>
-                            <Text style={{ fontSize: 20 }}>{`${item.name}`}</Text>
+                            <Text style={{ fontSize: 20, color: theme.text }}>{`${item.name}`}</Text>
                         </View>
                     </View>
                     </TouchableOpacity>

@@ -2,10 +2,12 @@ import { AntDesign, Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
 import { StyleSheet, View, Text, FlatList, Pressable, TouchableOpacity } from 'react-native';
 import useTheme from '../../hooks/useTheme';
+import colors from '../../constants/colors';
 import { RootTabScreenProps } from '../../types';
 import { Product } from '../../types/Product';
 import { getProducts, removeProductFromList } from '../../api/api-client';
 import { useFocusEffect } from '@react-navigation/native';
+import { color } from 'react-native-elements/dist/helpers';
 
 export default function ProductInListOverview({ route, navigation }: RootTabScreenProps<'ProductInListOverview'>) {
     const [products, setProducts] = React.useState<Array<Product>>([]);
@@ -18,6 +20,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
             width: "100%",
             alignItems: 'center',
             justifyContent: 'center',
+            backgroundColor: theme.background
         },
         item: {
             flex: 1,
@@ -25,6 +28,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
             height: 50,
             width: "100%",
             borderColor: theme.border,
+            backgroundColor:theme.border,
             borderBottomWidth: 0.5,
             marginTop: 10,
             paddingTop: 5,
@@ -49,7 +53,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
         navigation.setOptions({
             headerRight: () =>
                 <Pressable onPress={addProduct}>
-                    <Ionicons name="add" size={24} color="black" />
+                    <Ionicons name="add" size={24} color={theme.text} />
                 </Pressable>
         });
     }, [navigation]);
@@ -70,7 +74,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
                 renderItem={({ item }) => (
                     <View style={styles.item}>
                         <View style={{ flex: 1, flexDirection: "row" }}>
-                            <Text style={{ fontSize: 20 }}>{`${item.quantity} x ${item.name}`}</Text>
+                            <Text style={{ fontSize: 20 , color: theme.text}}>{`${item.quantity} x ${item.name}`}</Text>
                         </View>
                         <View style={{ flex: 0.2 }}>
                             <TouchableOpacity

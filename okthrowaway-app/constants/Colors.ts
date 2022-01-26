@@ -329,12 +329,12 @@ export default colors;
 const colorScheme: Theme & Partial<{ colors: { iconFocused: string } }> = {
   dark: true,
   colors: {
-    background: colors.white,
-    border: colors.red,
-    card: colors.bluegrey100,
-    iconFocused: colors.bluegrey700,
+    background: colors.customThemeBlack,
+    border: colors.customThemeDarkGrey,
+    card: colors.customThemeBlack,
+    iconFocused: colors.customThemeGrey,
     primary: colors.red100,
-    text: colors.black,
+    text: colors.customThemeGrey,
     notification: colors.greenAlpha050,
   }
 }

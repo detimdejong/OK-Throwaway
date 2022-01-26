@@ -1,6 +1,7 @@
 import { AntDesign } from '@expo/vector-icons';
 import * as React from 'react';
 import { FlatList, StyleSheet, TouchableOpacity, View, Text } from 'react-native';
+import { color } from 'react-native-elements/dist/helpers';
 import { deleteList, getShoppingLists, removeProductFromList } from '../../api/api-client';
 import colors from '../../constants/colors';
 import useTheme from '../../hooks/useTheme';
@@ -49,12 +50,14 @@ export default function Overview({ navigation, reload, edit }: Props) {
       height: 70,
       borderRadius: 20,
       borderWidth: 0.5,
-      borderColor: theme.border
+      borderColor: theme.border,
+      backgroundColor: theme.border
     },
     text: {
       fontSize: 25,
       textAlign: 'center',
       flex: 0.9,
+      color: theme.text
     }
   });
 
