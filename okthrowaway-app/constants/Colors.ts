@@ -326,26 +326,16 @@ const colors = {
 };
 export default colors;
 
-const colorScheme = {
-  primary: colors.bluegrey700,
-  background: colors.grey300,
-  card: colors.amber100,
-  text: colors.black,
-  border: colors.black,
-  notification: colors.greenAlpha050,
-  iconFocused: colors.bluegrey700
-}
-export { colorScheme };
-
-const navigationTheme: Theme = {
+const colorScheme: Theme & Partial<{ colors: { iconFocused: string } }> = {
   dark: true,
   colors: {
-    primary: colors.bluegrey100,
-    background: colors.grey300,
-    card: colors.grey400,
+    background: colors.white,
+    border: colors.red,
+    card: colors.bluegrey100,
+    iconFocused: colors.bluegrey700,
+    primary: colors.red100,
     text: colors.black,
-    border: colors.black,
     notification: colors.greenAlpha050,
   }
 }
-export { navigationTheme };
+export { colorScheme };

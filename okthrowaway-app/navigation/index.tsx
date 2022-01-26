@@ -11,14 +11,14 @@ import ProductOverview from "../screens/products/ProductsInListOverview";
 import ListOverview from '../screens/shoppinglists/Overview';
 import AddAlert from '../screens/shoppinglists/AddAlert';
 import { Provider } from "react-native-paper";
-import { navigationTheme } from '../constants/colors';
+import { colorScheme } from '../constants/colors';
 import AddProductToList from '../screens/products/AddProductToList';
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export default function Navigation() {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={navigationTheme}>
+      theme={colorScheme}>
       <RootNavigator />
     </NavigationContainer>
   );

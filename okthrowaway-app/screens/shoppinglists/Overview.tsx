@@ -48,7 +48,7 @@ export default function Overview({ navigation, reload }: Props) {
       height: 70,
       borderRadius: 20,
       borderWidth: 0.5,
-      borderColor: colors.black
+      borderColor: theme.border
     },
     text: {
       fontSize: 25
