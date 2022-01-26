@@ -1,7 +1,6 @@
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import * as React from 'react';
 import { StyleSheet, View, Text, FlatList, Pressable, TouchableOpacity } from 'react-native';
-import { post } from '../../api/make-request';
 import useTheme from '../../hooks/useTheme';
 import { RootTabScreenProps } from '../../types';
 import { Product } from '../../types/Product';
@@ -12,7 +11,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
     const [products, setProducts] = React.useState<Array<Product>>([]);
     const { listId } = route.params;
     const theme = useTheme();
-    
+
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -82,7 +81,7 @@ export default function ProductInListOverview({ route, navigation }: RootTabScre
                         </View>
                     </View>
                 )}
-                keyExtractor={(item) => item.name}
+                keyExtractor={(item, index) => `${item.name}_${index}`}
             />
         </View>
     );

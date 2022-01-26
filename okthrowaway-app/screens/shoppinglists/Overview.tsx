@@ -10,9 +10,10 @@ import { ShoppingList } from '../../types/ShoppingList';
 
 interface Props extends RootTabScreenProps<'Boodschappenlijstje'> {
   reload: boolean;
+  edit: boolean;
 }
 
-export default function Overview({ navigation, reload }: Props) {
+export default function Overview({ navigation, reload, edit }: Props) {
   const [shoppingLists, setShoppingLists] = React.useState<Array<ShoppingList> | undefined>();
   const theme = useTheme();
 
@@ -27,7 +28,7 @@ export default function Overview({ navigation, reload }: Props) {
   const onDelete = React.useCallback(async (listId) => {
     await deleteList(listId);
     await getLists();
-}, []);
+  }, []);
 
   React.useEffect(() => {
     getLists();
@@ -51,27 +52,33 @@ export default function Overview({ navigation, reload }: Props) {
       borderColor: theme.border
     },
     text: {
-      fontSize: 25
+      fontSize: 25,
+      textAlign: 'center',
+      flex: 0.9,
     }
   });
 
   return (
     <View style={styles.container}>
       <FlatList
-        style={{width: "90%"}}
+        style={{ width: "90%" }}
         data={shoppingLists}
         renderItem={({ item }) =>
           <TouchableOpacity style={styles.itemContainer} onPress={() => onPress(item.id)}>
-            <Text style={styles.text}>{item.name}</Text>
-            <TouchableOpacity
-                                onPress={() => onDelete(item.id)}
-                            >
-                                <AntDesign name="delete" size={30} color={theme.text} />
-                            </TouchableOpacity>
+            <View style={{ flexDirection: "row" }}>
+              <Text style={styles.text}>{item.name}</Text>
+              {edit &&
+                <TouchableOpacity
+                  onPress={() => onDelete(item.id)}
+                >
+                  <AntDesign name="delete" size={30} color={theme.text} />
+                </TouchableOpacity>
+              }
+            </View>
           </TouchableOpacity>
         }
-        keyExtractor={(item) => item.name}
-        
+        keyExtractor={(item, index) => `${item.name}_${index}`}
+
       />
     </View>
   );
