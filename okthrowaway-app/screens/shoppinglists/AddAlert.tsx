@@ -32,14 +32,16 @@ export default function Add({ visible, setVisible }: AddProps) {
             borderWidth: 0.5,
             borderColor: theme.border,
             borderRadius: 10,
-            padding: 10
+            padding: 10,
+            color: theme.text
+            
         }
     })
 
     return (
         <Portal>
             <Dialog visible={visible} onDismiss={addList} style={styles.dialog}>
-                <Dialog.Title style={{ color: colors.black }}>Lijstje toevoegen</Dialog.Title>
+                <Dialog.Title style={{ color: theme.text }}>Lijstje toevoegen</Dialog.Title>
                 <Dialog.Content>
                     <TextInput onChangeText={setName} style={styles.input} placeholder="Naam" />
                 </Dialog.Content>
@@ -51,7 +53,7 @@ export default function Add({ visible, setVisible }: AddProps) {
                             <FontAwesome
                                 name="save"
                                 size={20}
-                                color={colors.blue500}
+                                color={theme.text}
                                 style={{ marginRight: 10 }}
                             />
                         }
